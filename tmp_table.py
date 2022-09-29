@@ -7,13 +7,13 @@ from cn.cv import local_config as cf
 import requests
 
 """
-ÓÃÓÚ´´½¨Êı¾İ±íµÄÊ±ºòÊ¹ÓÃ
+ç”¨äºåˆ›å»ºæ•°æ®è¡¨çš„æ—¶å€™ä½¿ç”¨
 must read me
-Ê¹ÓÃ½Å±¾Ç°ĞèÒªÌáÇ°ÅäÖÃ´´½¨±íµÄ¶ÔÓ¦×¢ÊÍ×Öµä£¬±í¶ÔÓ¦regionµÄ¸öÊı£¬±í×Ö¶Î¼°ÀàĞÍºÍ×¢ÊÍµÄcsvÎÄ¼ş
+ä½¿ç”¨è„šæœ¬å‰éœ€è¦æå‰é…ç½®åˆ›å»ºè¡¨çš„å¯¹åº”æ³¨é‡Šå­—å…¸ï¼Œè¡¨å¯¹åº”regionçš„ä¸ªæ•°ï¼Œè¡¨å­—æ®µåŠç±»å‹å’Œæ³¨é‡Šçš„csvæ–‡ä»¶
 """
 
 
-# ½¨±íÓï¾äÉú³É£¬½«±íÃûÏà¹ØĞÅÏ¢²åÈëµ½TBLSÖĞ
+# å»ºè¡¨è¯­å¥ç”Ÿæˆï¼Œå°†è¡¨åç›¸å…³ä¿¡æ¯æ’å…¥åˆ°TBLSä¸­
 def gen_table_sql(table_info=dict(), table_region=dict()):
     sqls = []
     for k, v in table_info.items():
@@ -32,13 +32,13 @@ def gen_table_sql(table_info=dict(), table_region=dict()):
     return sqls
 
 
-# --------------------ÒÔÏÂ´¦ÀífieldµÄÉú³É
+# --------------------ä»¥ä¸‹å¤„ç†fieldçš„ç”Ÿæˆ
 def query_db():
-    db = pymysql.connect(host='39.106.67.4', port=3306, user='root', password='cv123456', database='meta_data',
+    db = pymysql.connect(host='39.106.67.400', port=3306, user='root', password='cv12345600', database='meta_data',
                          charset='utf8')
     cursor = db.cursor()
     cursor.execute("select tbl_name,tbl_id from TBLS where db_id=6")
-    lists = cursor.fetchall()  # ½ÓÊÕ·µ»ØµÄÖµ
+    lists = cursor.fetchall()  # æ¥æ”¶è¿”å›çš„å€¼
     db.commit()
     dicts = dict()
     for lst in lists:
@@ -46,7 +46,7 @@ def query_db():
     return dicts
 
 
-# ¸ù¾İ×Ö¶ÎÉú³Ésql ½«½á¹û²åÈëµ½×Ö¶Î±íÖĞ
+# æ ¹æ®å­—æ®µç”Ÿæˆsql å°†ç»“æœæ’å…¥åˆ°å­—æ®µè¡¨ä¸­
 def gen_table_filed_sql(file_path="../../resources/", tb_dic=dict()):
     # print(tb_dic)
     sql_list = []
@@ -73,16 +73,16 @@ def gen_table_filed_sql(file_path="../../resources/", tb_dic=dict()):
 
 
 def inser_table(sql):
-    db = pymysql.connect(host='39.106.67.4', port=3306, user='root', password='cv123456', database='meta_data',
+    db = pymysql.connect(host='39.106.67.400', port=3306, user='root', password='cv12345600', database='meta_data',
                          charset='utf8')
     cursor = db.cursor()
     cursor.execute(sql)
     db.commit()
 
 
-# ½«Éú³ÉµÄÊı¾İ²åÈë±íÖĞ
+# å°†ç”Ÿæˆçš„æ•°æ®æ’å…¥è¡¨ä¸­
 def inser_fields(sqls=[]):
-    db = pymysql.connect(host='39.106.67.4', port=3306, user='root', password='cv123456', database='meta_data',
+    db = pymysql.connect(host='39.106.67.400', port=3306, user='root', password='cv12345600', database='meta_data',
                          charset='utf8')
     cursor = db.cursor()
     for sql in sqls:
@@ -94,12 +94,12 @@ def inser_fields(sqls=[]):
 
 def request_batch_build_table():
     for k, v in cf.get_tmp_table_region().items():
-        db = pymysql.connect(host='39.106.67.4', port=3306, user='root', password='cv123456', database='meta_data',
+        db = pymysql.connect(host='39.106.67.400', port=3306, user='root', password='cv123456', database='meta_data',
                              charset='utf8')
         cursor = db.cursor()
         sql = "select tbl_id from TBLS where db_id=6 and tbl_name ='" + k+"'"
         cursor.execute(sql)
-        lists = cursor.fetchall()  # ½ÓÊÕ·µ»ØµÄÖµ
+        lists = cursor.fetchall()  # æ¥æ”¶è¿”å›çš„å€¼
         print(lists)
         db.commit()
         # dicts = dict()
